@@ -11,7 +11,7 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body class="dark-mode">
     <div class="glass-bg"></div>
@@ -48,35 +48,35 @@
                         <h3>Select Joint Category</h3>
                         <div class="category-grid">
                             <div class="category-item active" data-category="XR_ELBOW">
-                                <i class="fa-solid fa-x-ray"></i>
+                                <img src="cat_elbow.png" class="category-icon" alt="Elbow">
                                 <span>Elbow</span>
                             </div>
                             <div class="category-item" data-category="XR_FINGER">
-                                <i class="fa-solid fa-x-ray"></i>
+                                <img src="cat_finger.png" class="category-icon" alt="Finger">
                                 <span>Finger</span>
                             </div>
                             <div class="category-item" data-category="XR_FOREARM">
-                                <i class="fa-solid fa-x-ray"></i>
+                                <img src="cat_forearm.png" class="category-icon" alt="Forearm">
                                 <span>Forearm</span>
                             </div>
                             <div class="category-item" data-category="XR_HAND">
-                                <i class="fa-solid fa-x-ray"></i>
+                                <img src="cat_hand.png" class="category-icon" alt="Hand">
                                 <span>Hand</span>
                             </div>
                             <div class="category-item" data-category="XR_HUMERUS">
-                                <i class="fa-solid fa-x-ray"></i>
+                                <img src="cat_humerus.png" class="category-icon" alt="Humerus">
                                 <span>Humerus</span>
                             </div>
                             <div class="category-item" data-category="XR_SHOULDER">
-                                <i class="fa-solid fa-x-ray"></i>
+                                <img src="cat_shoulder.png" class="category-icon" alt="Shoulder">
                                 <span>Shoulder</span>
                             </div>
                             <div class="category-item" data-category="XR_WRIST">
-                                <i class="fa-solid fa-x-ray"></i>
+                                <img src="cat_wrist.png" class="category-icon" alt="Wrist">
                                 <span>Wrist</span>
                             </div>
                             <div class="category-item" data-category="ALL">
-                                <i class="fa-solid fa-x-ray"></i>
+                                <img src="cat_generic.png" class="category-icon" alt="Generic">
                                 <span>Generic (All)</span>
                             </div>
                         </div>
@@ -95,14 +95,6 @@
                         <i class="fa-solid fa-triangle-exclamation"></i>
                         <span><strong>Important:</strong> Uploading non-X-ray images may cause misleading results or false predictions.</span>
                     </div>
-
-                    <!-- Collapsible Guide -->
-                    <details class="anatomy-guide-details">
-                        <summary><i class="fa-solid fa-image"></i> View Joint Anatomy Guide Diagram</summary>
-                        <div class="anatomy-guide-content">
-                            <img src="anatomy_diagram.png" alt="MURA Anatomy Guide Diagram">
-                        </div>
-                    </details>
 
                     <!-- Preview Zone -->
                     <div class="preview-zone hidden" id="preview-zone">
@@ -346,6 +338,6 @@
     </footer>
 
     <!-- Custom Script Sheet -->
-    <script src="app.js"></script>
+    <script src="app.js?v=3"></script>
 </body>
 </html>
