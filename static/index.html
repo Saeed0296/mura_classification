@@ -28,6 +28,9 @@
             <button class="nav-btn" data-tab="insights">
                 <i class="fa-solid fa-chart-line"></i> Project Insights
             </button>
+            <button class="nav-btn" data-tab="about">
+                <i class="fa-solid fa-circle-info"></i> About Project
+            </button>
         </nav>
     </header>
 
@@ -265,6 +268,34 @@
                             <li><strong>Vision Transformer Advantage:</strong> ViT-B-16 achieves the highest overall accuracy. Its self-attention mechanism enables a more granular focus on fractures and bone anomalies that standard CNN filters sometimes downscale.</li>
                         </ul>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Tab -->
+        <section id="about-tab" class="tab-content">
+            <div class="card glass-card insights-container">
+                <h2><i class="fa-solid fa-circle-info text-gradient"></i> About MURA Classification</h2>
+                <p class="subtitle">Clinical context, architecture details, and how AI accelerates bone abnormality detection.</p>
+                
+                <div class="report-content">
+                    <h3>Clinical Significance</h3>
+                    <p>Musculoskeletal radiographs (X-rays) are the most common diagnostic imaging technique for evaluating joint abnormalities, fractures, hardware presence, and degenerative diseases. Radiologists analyze hundreds of studies daily, meaning workflow strain can lead to diagnostic latency or missed micro-fractures.</p>
+                    <p>By automating the detection of abnormalities across joint studies (Elbow, Finger, Forearm, Hand, Humerus, Shoulder, and Wrist), this system serves as an intelligent diagnostic aid, triaging cases by highlighting positive abnormal images for immediate clinical review.</p>
+
+                    <h3>How the Pipeline Works</h3>
+                    <ol>
+                        <li><strong>Image Preprocessing:</strong> The uploaded image is resized to 224x224 pixels and normalized to ImageNet color channel standards.</li>
+                        <li><strong>Local M4 GPU Acceleration:</strong> The PyTorch models run inference utilizing macOS Metal Performance Shaders (MPS), completing diagnostic predictions in milliseconds.</li>
+                        <li><strong>Ensemble Consensus:</strong> Predictions are processed concurrently by three separate architectures (ResNet50, DenseNet169, and ViT-B-16) to provide a unified diagnostic confidence score and consensus recommendation.</li>
+                    </ol>
+
+                    <h3>Model Architecture Details</h3>
+                    <ul>
+                        <li><strong>ResNet50:</strong> Introduces deep residual blocks with skip connections, mitigating the vanishing gradient problem and learning highly robust bone boundary features.</li>
+                        <li><strong>DenseNet169:</strong> Stanford MURA paper's standard baseline. Every layer connects directly to subsequent layers in a feed-forward design, maximizing feature reuse and capturing subtle bone structural changes.</li>
+                        <li><strong>Vision Transformer (ViT-B-16):</strong> Adapts self-attention blocks from NLP to computer vision. Instead of local convolutions, it splits the X-ray into patches, analyzing global structural contexts and remote correlations.</li>
+                    </ul>
                 </div>
             </div>
         </section>
