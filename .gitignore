@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary files
+temp/
+.DS_Store
+
+# PyTorch checkpoints and model weight files
+*.pth
+*.h5
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
