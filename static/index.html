@@ -26,10 +26,7 @@
                 <i class="fa-solid fa-gauge-high"></i> Dashboard
             </button>
             <button class="nav-btn" data-tab="insights">
-                <i class="fa-solid fa-chart-line"></i> Project Insights
-            </button>
-            <button class="nav-btn" data-tab="about">
-                <i class="fa-solid fa-circle-info"></i> About Project
+                <i class="fa-solid fa-book-medical"></i> Documentation & Insights
             </button>
         </nav>
     </header>
@@ -223,23 +220,54 @@
             </div>
         </section>
 
-        <!-- Insights Tab -->
+        <!-- Insights & Documentation Tab -->
         <section id="insights-tab" class="tab-content">
             <div class="card glass-card insights-container">
-                <h2><i class="fa-solid fa-square-rss"></i> MURA Classifier Project Insights</h2>
-                <p class="subtitle">Comprehensive report detailing model accuracies, Kappa scores, and comparative performance against your baseline FYP model.</p>
+                <h2><i class="fa-solid fa-book-medical text-gradient"></i> Documentation & Insights</h2>
+                <p class="subtitle">User guide manual, clinical significance, validation metrics, and model architecture details.</p>
+
+                <!-- User Guide Manual -->
+                <h3><i class="fa-solid fa-circle-question"></i> Quick Start User Guide</h3>
+                <div class="user-manual-steps">
+                    <div class="step-card">
+                        <span class="step-number">1</span>
+                        <i class="fa-solid fa-list-check"></i>
+                        <h4>Select Category</h4>
+                        <p>Choose the correct bone study category (e.g. Elbow, Hand, Finger, Humerus, Shoulder, Forearm, Wrist, or Generic). Proper category selection is vital for prediction accuracy.</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">2</span>
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <h4>Upload X-Ray</h4>
+                        <p>Drag and drop a bone radiograph image (JPEG/PNG) into the drop zone, or browse files from your computer.</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">3</span>
+                        <i class="fa-solid fa-gears"></i>
+                        <h4>Process Inference</h4>
+                        <p>Click the "Process Classifier Models" button. The server will run model inferences concurrently on local M4 GPU (MPS) hardware.</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">4</span>
+                        <i class="fa-solid fa-square-poll-vertical"></i>
+                        <h4>Compare Consensus</h4>
+                        <p>Analyze side-by-side confidence charts across ResNet50, DenseNet169, ViT-B-16, and our Hybrid Ensemble consensus diagnosis.</p>
+                    </div>
+                </div>
 
                 <div class="insights-layout">
                     <!-- Text report details -->
                     <div class="report-content">
-                        <h3>Project Motivation & Objectives</h3>
-                        <p>The **MURA (musculoskeletal radiographs)** dataset is one of the largest public datasets of bone X-rays, developed by Stanford ML Group. The objective of this project is to build deep learning classifiers to detect abnormalities (such as fractures, dislocation, hardware, or degenerative bone diseases) and compare performance across three distinct deep learning architectures:</p>
-                        
-                        <ul>
-                            <li><strong>ResNet50 (Residual Network):</strong> Introduces skip-connections to allow training of very deep models, preventing vanishing gradient issues.</li>
-                            <li><strong>DenseNet169 (Densely Connected Convolutional Network):</strong> Each layer connects to every other layer in a feed-forward fashion, reusing features efficiently. (This was the baseline model architecture used in Stanford's original paper).</li>
-                            <li><strong>ViT-B-16 (Vision Transformer):</strong> Adapts the self-attention transformer architecture to patchify image files, capturing global multi-scale relationships.</li>
-                        </ul>
+                        <h3>Clinical Significance</h3>
+                        <p>Musculoskeletal radiographs (X-rays) are the most common diagnostic imaging technique for evaluating joint abnormalities, fractures, hardware presence, and degenerative diseases. Radiologists analyze hundreds of studies daily, meaning workflow strain can lead to diagnostic latency or missed micro-fractures.</p>
+                        <p>By automating the detection of abnormalities across joint studies (Elbow, Finger, Forearm, Hand, Humerus, Shoulder, and Wrist), this system serves as an intelligent diagnostic aid, triaging cases by highlighting positive abnormal images for immediate clinical review.</p>
+
+                        <h3>How the Pipeline Works</h3>
+                        <ol>
+                            <li><strong>Image Preprocessing:</strong> The uploaded image is resized to 224x224 pixels and normalized to ImageNet color channel standards.</li>
+                            <li><strong>Local M4 GPU Acceleration:</strong> The PyTorch models run inference utilizing macOS Metal Performance Shaders (MPS), completing diagnostic predictions in milliseconds.</li>
+                            <li><strong>Ensemble Consensus:</strong> Predictions are processed concurrently by three separate architectures (ResNet50, DenseNet169, and ViT-B-16) to provide a unified diagnostic confidence score and consensus recommendation.</li>
+                        </ol>
 
                         <h3>Validation Performance Summary</h3>
                         <div class="table-container">
@@ -293,6 +321,13 @@
                             </table>
                         </div>
 
+                        <h3>Model Architecture Details</h3>
+                        <ul>
+                            <li><strong>ResNet50:</strong> Introduces deep residual blocks with skip connections, mitigating the vanishing gradient problem and learning highly robust bone boundary features.</li>
+                            <li><strong>DenseNet169:</strong> Stanford MURA paper's standard baseline. Every layer connects directly to subsequent layers in a feed-forward design, maximizing feature reuse and capturing subtle bone structural changes.</li>
+                            <li><strong>Vision Transformer (ViT-B-16):</strong> Adapts self-attention blocks from NLP to computer vision. Instead of local convolutions, it splits the X-ray into patches, analyzing global structural contexts and remote correlations.</li>
+                        </ul>
+
                         <h3>Key Insights</h3>
                         <ul>
                             <li><strong>Performance Improvement:</strong> The retrained DenseNet169, ViT-B-16, and ensembled SOTA models show massive improvements (reaching <strong>90.50% accuracy</strong>) compared to the FYP baseline models (73%). This is driven by deep transfer learning, joint-specific modeling, and model ensembling.</li>
@@ -300,34 +335,6 @@
                             <li><strong>Clinical Assistance (Ensemble Value):</strong> The Hybrid SOTA ensemble achieves a Cohen's Kappa of <strong>0.8100</strong>, outperforming the average human radiologist (0.778 Kappa). By combining multi-scale visual details, it alerts clinicians to sub-visual anomalies (such as hairline fractures, minor osteophytes, or initial joint narrows) that might be difficult for the human eye to detect under workload constraints.</li>
                         </ul>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Tab -->
-        <section id="about-tab" class="tab-content">
-            <div class="card glass-card insights-container">
-                <h2><i class="fa-solid fa-circle-info text-gradient"></i> About MURA Classification</h2>
-                <p class="subtitle">Clinical context, architecture details, and how AI accelerates bone abnormality detection.</p>
-                
-                <div class="report-content">
-                    <h3>Clinical Significance</h3>
-                    <p>Musculoskeletal radiographs (X-rays) are the most common diagnostic imaging technique for evaluating joint abnormalities, fractures, hardware presence, and degenerative diseases. Radiologists analyze hundreds of studies daily, meaning workflow strain can lead to diagnostic latency or missed micro-fractures.</p>
-                    <p>By automating the detection of abnormalities across joint studies (Elbow, Finger, Forearm, Hand, Humerus, Shoulder, and Wrist), this system serves as an intelligent diagnostic aid, triaging cases by highlighting positive abnormal images for immediate clinical review.</p>
-
-                    <h3>How the Pipeline Works</h3>
-                    <ol>
-                        <li><strong>Image Preprocessing:</strong> The uploaded image is resized to 224x224 pixels and normalized to ImageNet color channel standards.</li>
-                        <li><strong>Local M4 GPU Acceleration:</strong> The PyTorch models run inference utilizing macOS Metal Performance Shaders (MPS), completing diagnostic predictions in milliseconds.</li>
-                        <li><strong>Ensemble Consensus:</strong> Predictions are processed concurrently by three separate architectures (ResNet50, DenseNet169, and ViT-B-16) to provide a unified diagnostic confidence score and consensus recommendation.</li>
-                    </ol>
-
-                    <h3>Model Architecture Details</h3>
-                    <ul>
-                        <li><strong>ResNet50:</strong> Introduces deep residual blocks with skip connections, mitigating the vanishing gradient problem and learning highly robust bone boundary features.</li>
-                        <li><strong>DenseNet169:</strong> Stanford MURA paper's standard baseline. Every layer connects directly to subsequent layers in a feed-forward design, maximizing feature reuse and capturing subtle bone structural changes.</li>
-                        <li><strong>Vision Transformer (ViT-B-16):</strong> Adapts self-attention blocks from NLP to computer vision. Instead of local convolutions, it splits the X-ray into patches, analyzing global structural contexts and remote correlations.</li>
-                    </ul>
                 </div>
             </div>
         </section>
