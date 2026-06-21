@@ -567,15 +567,9 @@ body {
 
 .model-cards-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem;
     margin: 1.5rem 0;
-}
-
-@media (max-width: 1024px) {
-    .model-cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 @media (max-width: 640px) {
@@ -882,4 +876,48 @@ body {
     color: var(--warning);
     font-size: 1.05rem;
     margin-top: 0.1rem;
+}
+
+.anatomy-guide-details {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    transition: var(--transition-smooth);
+    text-align: left;
+}
+
+.anatomy-guide-details[open] {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.anatomy-guide-details summary {
+    font-family: var(--font-outfit);
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.anatomy-guide-details summary:hover {
+    color: var(--text-main);
+}
+
+.anatomy-guide-content {
+    margin-top: 1rem;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.anatomy-guide-content img {
+    max-width: 100%;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
