@@ -144,4 +144,41 @@ def predict_single_image(image_path, category):
     except Exception as e:
         results["vit_b_16"] = {"error": str(e)}
         
+    # 4. Hybrid SOTA Ensemble Inference
+    try:
+        valid_probs = []
+        valid_latencies = []
+        weights = []
+        
+        if "resnet50" in results and "error" not in results["resnet50"]:
+            valid_probs.append(results["resnet50"]["probability"])
+            valid_latencies.append(results["resnet50"]["latency_ms"])
+            weights.append(0.15)
+            
+        if "densenet169" in results and "error" not in results["densenet169"]:
+            valid_probs.append(results["densenet169"]["probability"])
+            valid_latencies.append(results["densenet169"]["latency_ms"])
+            weights.append(0.35)
+            
+        if "vit_b_16" in results and "error" not in results["vit_b_16"]:
+            valid_probs.append(results["vit_b_16"]["probability"])
+            valid_latencies.append(results["vit_b_16"]["latency_ms"])
+            weights.append(0.50)
+            
+        if len(valid_probs) > 0:
+            total_w = sum(weights)
+            norm_weights = [w / total_w for w in weights]
+            hybrid_prob = sum(p * w for p, w in zip(valid_probs, norm_weights))
+            hybrid_latency = sum(valid_latencies)
+            
+            results["hybrid_ensemble"] = {
+                "prediction": "Abnormal (Positive)" if hybrid_prob >= 0.5 else "Normal (Negative)",
+                "probability": hybrid_prob,
+                "latency_ms": round(hybrid_latency, 2)
+            }
+        else:
+            results["hybrid_ensemble"] = {"error": "All underlying models failed."}
+    except Exception as e:
+        results["hybrid_ensemble"] = {"error": f"Failed to compute ensemble: {str(e)}"}
+        
     return results

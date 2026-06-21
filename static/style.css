@@ -567,9 +567,15 @@ body {
 
 .model-cards-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.25rem;
     margin: 1.5rem 0;
+}
+
+@media (max-width: 1024px) {
+    .model-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 640px) {
@@ -668,6 +674,21 @@ body {
 }
 .amber-chart .circle {
     stroke: var(--warning);
+}
+.gold-chart .circle {
+    stroke: #ffb020;
+}
+
+.model-result-card.hybrid-card {
+    border-color: rgba(255, 176, 32, 0.22);
+    background: rgba(255, 176, 32, 0.015);
+    box-shadow: 0 0 15px rgba(255, 176, 32, 0.04);
+}
+
+.model-result-card.hybrid-card:hover {
+    border-color: rgba(255, 176, 32, 0.4);
+    background: rgba(255, 176, 32, 0.03);
+    box-shadow: 0 0 20px rgba(255, 176, 32, 0.08);
 }
 
 .percentage {

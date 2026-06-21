@@ -211,9 +211,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let validModels = 0;
 
         const modelsList = [
-            { key: 'resnet50', id: 'resnet', label: 'ResNet50' },
-            { key: 'densenet169', id: 'densenet', label: 'DenseNet169' },
-            { key: 'vit_b_16', id: 'vit', label: 'ViT-B-16' }
+            { key: 'resnet50', id: 'resnet', label: 'ResNet50', isEnsemble: false },
+            { key: 'densenet169', id: 'densenet', label: 'DenseNet169', isEnsemble: false },
+            { key: 'vit_b_16', id: 'vit', label: 'ViT-B-16', isEnsemble: false },
+            { key: 'hybrid_ensemble', id: 'hybrid', label: 'Hybrid SOTA', isEnsemble: true }
         ];
 
         modelsList.forEach(m => {
@@ -226,19 +227,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const svgChart = document.getElementById(`svg-${m.id}`);
 
             if (modelResult && !modelResult.error) {
-                validModels++;
                 const prob = modelResult.probability;
                 const percent = Math.round(prob * 100);
                 const latency = modelResult.latency_ms;
                 const isAbnormal = prob >= 0.5;
 
-                if (isAbnormal) abnormalCount++;
+                if (!m.isEnsemble) {
+                    validModels++;
+                    if (isAbnormal) abnormalCount++;
+                }
 
                 // Set Percentage text
                 textElement.textContent = `${percent}%`;
                 
                 // SVG Chart transition & color class
-                svgChart.className.baseVal = `circular-chart ${isAbnormal ? 'red-chart' : 'green-chart'}`;
+                if (m.isEnsemble) {
+                    svgChart.className.baseVal = `circular-chart gold-chart`;
+                } else {
+                    svgChart.className.baseVal = `circular-chart ${isAbnormal ? 'red-chart' : 'green-chart'}`;
+                }
                 pathElement.setAttribute('stroke-dasharray', `${percent}, 100`);
 
                 // Set Badge
