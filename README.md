@@ -104,8 +104,10 @@ pip install fastapi uvicorn pillow
 ```
 
 ### 4. Place Checkpoint Weights
-Create a weights folder inside the parent folder or configure the backend path. The inference engine searches for `.pth` checkpoints inside your local directory.
-Ensure checkpoints match this layout:
+On your system, the trained checkpoint weights are saved locally in the directory:
+`/Users/saeedanwar/Desktop/saeed/MURA/checkpoints/`
+
+The FastAPI inference engine loads weights directly from this folder. Ensure checkpoints match this layout:
 * **ResNet50:** `mura_{category}_best_model.pth`
 * **DenseNet169:** `mura_densenet_{category}_best_model.pth`
 * **ViT-B-16:** `mura_vit_{category}_best_model.pth`
@@ -123,7 +125,7 @@ Uvicorn will spin up a local server at: **`http://127.0.0.1:8000`**
 
 ## 📖 User Guide: How to Get Predictions
 
-1. **Open Dashboard:** Navigate to `http://127.0.0.1:8000/` in your web browser.
+1. **Open Dashboard:** Navigate to `http://127.0.0.1:8000/` (for local development running the backend) or use the live static UI hosted at [saeed0296.github.io/mura_classification/static/index.html](https://saeed0296.github.io/mura_classification/static/index.html).
 2. **Select Joint Category:** Click on one of the visual category buttons (e.g., Elbow, Wrist, Hand, Finger, Humerus, Shoulder, Forearm, or Generic).
 3. **Upload X-Ray:** Drag & drop the bone radiograph image into the dashed upload panel or click to browse files.
 4. **Process:** Click **"Process Classifier Models"**. The live timer will start, displaying the inference phase of each architecture.
