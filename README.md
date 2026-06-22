@@ -1,5 +1,8 @@
 # MURA Bone Abnormality Classification & Consensus Dashboard
 
+> [!TIP]
+> **Live Web Application:** Access the live interactive web demo directly at [saeed0296.github.io/mura_classification/static/index.html](https://saeed0296.github.io/mura_classification/static/index.html) to run inference on bone radiographs.
+
 A premium, interactive clinical-grade web application for real-time bone radiograph classification and abnormality detection. This system utilizes deep learning models trained on the Stanford MURA (musculoskeletal radiographs) dataset to classify X-ray images as **Normal** or **Abnormal** across 7 joint types.
 
 The application evaluates and compares three distinct state-of-the-art deep learning architectures in real-time, leveraging local GPU hardware acceleration:
