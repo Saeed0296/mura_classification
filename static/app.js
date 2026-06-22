@@ -181,7 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const apiEndpoint = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === ''
             ? '/predict'
-            : 'http://127.0.0.1:8000/predict';
+            : (window.location.hostname.includes('hf.space')
+                ? '/predict'
+                : 'https://saeed0296-mura-classification.hf.space/predict');
 
         try {
             const response = await fetch(apiEndpoint, {

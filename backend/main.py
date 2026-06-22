@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 # Temp directory to save uploaded images
-TEMP_DIR = "/Users/saeedanwar/Desktop/saeed/mura_classification/temp"
+TEMP_DIR = os.getenv("MURA_TEMP_DIR", "/Users/saeedanwar/Desktop/saeed/mura_classification/temp")
 os.makedirs(TEMP_DIR, exist_ok=True)
 
 @app.post("/predict")
@@ -53,7 +53,7 @@ async def predict(
     return results
 
 # Mount static frontend directory
-STATIC_DIR = "/Users/saeedanwar/Desktop/saeed/mura_classification/static"
+STATIC_DIR = os.getenv("MURA_STATIC_DIR", "/Users/saeedanwar/Desktop/saeed/mura_classification/static")
 os.makedirs(STATIC_DIR, exist_ok=True)
 
 # Mount the root directory to serve static HTML, CSS, JS
@@ -61,4 +61,7 @@ app.mount("/", StaticFiles(directory=STATIC_DIR, html=True), name="static")
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    # Hugging Face Spaces uses port 7860 by default
+    port = int(os.getenv("PORT", 7860))
+    host = os.getenv("HOST", "127.0.0.1")
+    uvicorn.run("main:app", host=host, port=port, reload=False if host == "0.0.0.0" else True)
