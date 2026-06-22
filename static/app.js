@@ -179,8 +179,12 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('image', uploadedFile);
         formData.append('category', selectedCategory);
 
+        const apiEndpoint = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === ''
+            ? '/predict'
+            : 'http://127.0.0.1:8000/predict';
+
         try {
-            const response = await fetch('/predict', {
+            const response = await fetch(apiEndpoint, {
                 method: 'POST',
                 body: formData
             });
