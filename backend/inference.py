@@ -35,7 +35,7 @@ def load_resnet50_model(category):
     
     if os.path.exists(checkpoint_path):
         try:
-            checkpoint = torch.load(checkpoint_path, map_location=DEVICE)
+            checkpoint = torch.load(checkpoint_path, map_location=DEVICE, weights_only=False)
             model.load_state_dict(checkpoint['model_state_dict'])
             print(f"[Inference] Loaded trained ResNet50 checkpoint for {category}")
         except Exception as e:
@@ -56,7 +56,7 @@ def load_densenet169_model(category):
     
     if os.path.exists(checkpoint_path):
         try:
-            checkpoint = torch.load(checkpoint_path, map_location=DEVICE)
+            checkpoint = torch.load(checkpoint_path, map_location=DEVICE, weights_only=False)
             model.load_state_dict(checkpoint['model_state_dict'])
             print(f"[Inference] Loaded trained DenseNet169 checkpoint for {category}")
         except Exception as e:
@@ -77,7 +77,7 @@ def load_vit_model(category):
     
     if os.path.exists(checkpoint_path):
         try:
-            checkpoint = torch.load(checkpoint_path, map_location=DEVICE)
+            checkpoint = torch.load(checkpoint_path, map_location=DEVICE, weights_only=False)
             model.load_state_dict(checkpoint['model_state_dict'])
             print(f"[Inference] Loaded trained ViT-B-16 checkpoint for {category}")
         except Exception as e:
