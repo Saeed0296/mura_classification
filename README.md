@@ -3,6 +3,13 @@
 > [!TIP]
 > **Live Web Application:** Access the live interactive web demo directly at [saeed0296.github.io/mura_classification/static/index.html](https://saeed0296.github.io/mura_classification/static/index.html) to run inference on bone radiographs.
 
+### 🚀 Live Deployment
+The application is deployed using a hybrid serverless-static architecture:
+* **Frontend:** Hosted statically on **GitHub Pages** for instant loading times and global CDN caching.
+* **Backend API:** Hosted on **Hugging Face Spaces** running a containerized CPU-optimized FastAPI instance with PyTorch to process neural network inference.
+  * **Hugging Face Space Repository:** [Saeed0296/mura-classification](https://huggingface.co/spaces/Saeed0296/mura-classification)
+  * **Storage Optimization:** To fit under the **1 GB repository storage limit** of Hugging Face free tier, the Space utilizes the **3 generic weights files** (`mura_all_best_model.pth`, `mura_densenet_all_best_model.pth`, `mura_vit_all_best_model.pth` - **~466 MB** total) with dynamic fallback logic.
+
 A premium, interactive clinical-grade web application for real-time bone radiograph classification and abnormality detection. This system utilizes deep learning models trained on the Stanford MURA (musculoskeletal radiographs) dataset to classify X-ray images as **Normal** or **Abnormal** across 7 joint types.
 
 The application evaluates and compares three distinct state-of-the-art deep learning architectures in real-time, leveraging local GPU hardware acceleration:
