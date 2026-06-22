@@ -323,6 +323,73 @@
                             </table>
                         </div>
 
+                        <h3>Joint-Specific Validation Comparison (Cohen's Kappa)</h3>
+                        <p>Comparing the best validation Cohen's Kappa score for each joint across all new architectures:</p>
+                        <div class="table-container">
+                            <table class="report-table">
+                                <thead>
+                                    <tr>
+                                        <th>Joint Category</th>
+                                        <th class="numeric">ResNet50 (Kappa)</th>
+                                        <th class="numeric">DenseNet169 (Kappa)</th>
+                                        <th class="numeric">ViT-B-16 (Kappa)</th>
+                                        <th>Best Architecture</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Elbow (XR_ELBOW)</strong></td>
+                                        <td class="numeric">0.7114</td>
+                                        <td class="numeric">0.7028</td>
+                                        <td class="numeric">0.6465</td>
+                                        <td><span class="badge resnet">ResNet50</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Finger (XR_FINGER)</strong></td>
+                                        <td class="numeric">0.5229</td>
+                                        <td class="numeric">0.5285</td>
+                                        <td class="numeric">0.4130</td>
+                                        <td><span class="badge densenet">DenseNet169</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Forearm (XR_FOREARM)</strong></td>
+                                        <td class="numeric">0.5421</td>
+                                        <td class="numeric">0.6679</td>
+                                        <td class="numeric">0.6216</td>
+                                        <td><span class="badge densenet">DenseNet169</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Hand (XR_HAND)</strong></td>
+                                        <td class="numeric">0.4679</td>
+                                        <td class="numeric">0.5123</td>
+                                        <td class="numeric">0.2309</td>
+                                        <td><span class="badge densenet">DenseNet169</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Humerus (XR_HUMERUS)</strong></td>
+                                        <td class="numeric">0.6943</td>
+                                        <td class="numeric">0.7079</td>
+                                        <td class="numeric">0.6668</td>
+                                        <td><span class="badge densenet">DenseNet169</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Shoulder (XR_SHOULDER)</strong></td>
+                                        <td class="numeric">0.5663</td>
+                                        <td class="numeric">0.5977</td>
+                                        <td class="numeric">0.4157</td>
+                                        <td><span class="badge densenet">DenseNet169</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Wrist (XR_WRIST)</strong></td>
+                                        <td class="numeric">0.6778</td>
+                                        <td class="numeric">0.6788</td>
+                                        <td class="numeric">0.6330</td>
+                                        <td><span class="badge densenet">DenseNet169</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                         <h3>Model Architecture Details</h3>
                         <ul>
                             <li><strong>ResNet50:</strong> Introduces deep residual blocks with skip connections, mitigating the vanishing gradient problem and learning highly robust bone boundary features.</li>
