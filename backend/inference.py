@@ -33,15 +33,23 @@ def load_resnet50_model(category):
     checkpoint_name = f"mura_{category.lower()}_best_model.pth"
     checkpoint_path = os.path.join(CHECKPOINT_DIR, checkpoint_name)
     
+    # Dynamic fallback to generic 'all' model if specific checkpoint is missing
+    if not os.path.exists(checkpoint_path) and category.lower() != "all":
+        fallback_name = "mura_all_best_model.pth"
+        fallback_path = os.path.join(CHECKPOINT_DIR, fallback_name)
+        if os.path.exists(fallback_path):
+            checkpoint_path = fallback_path
+            print(f"[Inference] ResNet50 checkpoint for {category} not found. Falling back to generic model.")
+            
     if os.path.exists(checkpoint_path):
         try:
             checkpoint = torch.load(checkpoint_path, map_location=DEVICE, weights_only=False)
             model.load_state_dict(checkpoint['model_state_dict'])
-            print(f"[Inference] Loaded trained ResNet50 checkpoint for {category}")
+            print(f"[Inference] Loaded ResNet50 weights from {os.path.basename(checkpoint_path)}")
         except Exception as e:
-            print(f"[Inference] Error loading ResNet50 checkpoint for {category}: {e}. Using untrained baseline.")
+            print(f"[Inference] Error loading ResNet50 checkpoint: {e}. Using untrained baseline.")
     else:
-        print(f"[Inference] ResNet50 checkpoint not found at {checkpoint_path}. Using baseline weights.")
+        print(f"[Inference] ResNet50 checkpoint not found. Using baseline weights.")
         
     model = model.to(DEVICE)
     model.eval()
@@ -54,15 +62,23 @@ def load_densenet169_model(category):
     checkpoint_name = f"mura_densenet_{category.lower()}_best_model.pth"
     checkpoint_path = os.path.join(CHECKPOINT_DIR, checkpoint_name)
     
+    # Dynamic fallback to generic 'all' model if specific checkpoint is missing
+    if not os.path.exists(checkpoint_path) and category.lower() != "all":
+        fallback_name = "mura_densenet_all_best_model.pth"
+        fallback_path = os.path.join(CHECKPOINT_DIR, fallback_name)
+        if os.path.exists(fallback_path):
+            checkpoint_path = fallback_path
+            print(f"[Inference] DenseNet169 checkpoint for {category} not found. Falling back to generic model.")
+            
     if os.path.exists(checkpoint_path):
         try:
             checkpoint = torch.load(checkpoint_path, map_location=DEVICE, weights_only=False)
             model.load_state_dict(checkpoint['model_state_dict'])
-            print(f"[Inference] Loaded trained DenseNet169 checkpoint for {category}")
+            print(f"[Inference] Loaded DenseNet169 weights from {os.path.basename(checkpoint_path)}")
         except Exception as e:
-            print(f"[Inference] Error loading DenseNet169 checkpoint for {category}: {e}. Using untrained baseline.")
+            print(f"[Inference] Error loading DenseNet169 checkpoint: {e}. Using untrained baseline.")
     else:
-        print(f"[Inference] DenseNet169 checkpoint not found at {checkpoint_path}. Using baseline weights.")
+        print(f"[Inference] DenseNet169 checkpoint not found. Using baseline weights.")
         
     model = model.to(DEVICE)
     model.eval()
@@ -75,15 +91,23 @@ def load_vit_model(category):
     checkpoint_name = f"mura_vit_{category.lower()}_best_model.pth"
     checkpoint_path = os.path.join(CHECKPOINT_DIR, checkpoint_name)
     
+    # Dynamic fallback to generic 'all' model if specific checkpoint is missing
+    if not os.path.exists(checkpoint_path) and category.lower() != "all":
+        fallback_name = "mura_vit_all_best_model.pth"
+        fallback_path = os.path.join(CHECKPOINT_DIR, fallback_name)
+        if os.path.exists(fallback_path):
+            checkpoint_path = fallback_path
+            print(f"[Inference] ViT checkpoint for {category} not found. Falling back to generic model.")
+            
     if os.path.exists(checkpoint_path):
         try:
             checkpoint = torch.load(checkpoint_path, map_location=DEVICE, weights_only=False)
             model.load_state_dict(checkpoint['model_state_dict'])
-            print(f"[Inference] Loaded trained ViT-B-16 checkpoint for {category}")
+            print(f"[Inference] Loaded ViT weights from {os.path.basename(checkpoint_path)}")
         except Exception as e:
-            print(f"[Inference] Error loading ViT checkpoint for {category}: {e}. Using untrained baseline.")
+            print(f"[Inference] Error loading ViT checkpoint: {e}. Using untrained baseline.")
     else:
-        print(f"[Inference] ViT checkpoint not found at {checkpoint_path}. Using baseline weights.")
+        print(f"[Inference] ViT checkpoint not found. Using baseline weights.")
         
     model = model.to(DEVICE)
     model.eval()
