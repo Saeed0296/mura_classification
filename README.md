@@ -51,9 +51,9 @@ Below is the comparative performance summary on the MURA validation dataset agai
 | `mura_small_best_model` (Keras FYP) | 73.07% | 0.7078 | Small Custom CNN baseline |
 | `TL_mura_small_best_model` (Keras FYP) | 72.91% | 0.7058 | Transfer Learning baseline |
 | **PyTorch ResNet50 (New)** | 80.67% | 0.6110 | Deeper residual feature learning |
-| **PyTorch DenseNet169 (New)** | 85.40% | 0.7100 | Stanford MURA baseline architecture |
-| **PyTorch ViT-B-16 (New)** | 88.50% | 0.7700 | Self-attention model capturing global contexts |
-| **Hybrid SOTA Ensemble (New)** | **90.50%** | **0.8100** | **Weighted SOTA consensus (Exceeds average Radiologist score of 0.778)** |
+| **PyTorch DenseNet169 (New)** | 81.61% | 0.6299 | Standalone CNN leader (max feature reuse) |
+| **PyTorch ViT-B-16 (New)** | 77.10% | 0.5375 | Vision Transformer (global context attention) |
+| **Hybrid SOTA Ensemble (New)** | **82.30%** | **0.6431** | **Weighted SOTA consensus (Exceeds all standalone PyTorch models)** |
 
 ---
 
@@ -63,6 +63,7 @@ To run this application locally, the following resources are required:
 
 | Resource | Minimum | Recommended | Notes |
 | :--- | :--- | :--- | :--- |
+| **Python Runtime**      | Python 3.9.x | **Python 3.9.6 (Tested)** | Environment tested extensively under Python 3.9.6. |
 | **RAM (Unified Memory)**| 8 GB | 16 GB+ | High-resolution image batches require stable system memory. |
 | **GPU / Acceleration**  | CPU Fallback | Apple Silicon (M1/M2/M3/M4) or NVIDIA CUDA | MPS/CUDA acceleration reduces inference latency from ~1.5s to <50ms. |
 | **Storage (Disk Space)**| ~3.8 GB | ~10 GB | Weights directory size is ~3.8 GB (24 checkpoints for 8 categories × 3 architectures). |
@@ -82,10 +83,10 @@ cd mura_classification
 ```
 
 ### 2. Set Up a Virtual Environment
-Create a clean environment using Python 3.9+ to isolate project dependencies:
+Create a clean environment using Python 3.9.6 to isolate project dependencies:
 ```bash
 # Create environment
-python3 -m venv jupyter_env
+python3.9 -m venv jupyter_env
 
 # Activate environment
 source jupyter_env/bin/activate
