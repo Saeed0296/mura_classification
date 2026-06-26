@@ -1,14 +1,16 @@
 # MURA Bone Abnormality Classification & Consensus Dashboard
 
 > [!TIP]
-> **Live Web Application:** Access the live interactive web demo directly at [saeed0296.github.io/mura_classification/static/index.html](https://saeed0296.github.io/mura_classification/static/index.html) to run inference on bone radiographs.
+> **🚀 Live Prediction Demo:** Run bone abnormality classification directly on the live containerized web application hosted on [Hugging Face Spaces](https://huggingface.co/spaces/Saeed0296/mura-classification).
+> 
+> *Note: This GitHub code repository holds the version-controlled codebase and does not process predictions. The active API server and model weights are deployed on Hugging Face Spaces.*
 
 ### 🚀 Live Deployment
-The application is deployed using a hybrid serverless-static architecture:
-* **Frontend:** Hosted statically on **GitHub Pages** for instant loading times and global CDN caching.
-* **Backend API:** Hosted on **Hugging Face Spaces** running a containerized CPU-optimized FastAPI instance with PyTorch to process neural network inference.
+The application is deployed using a containerized serverless architecture:
+* **Production Live App:** Hosted on **Hugging Face Spaces** running a CPU-optimized FastAPI Docker instance with PyTorch to process neural network inference.
   * **Hugging Face Space Repository:** [Saeed0296/mura-classification](https://huggingface.co/spaces/Saeed0296/mura-classification)
   * **Storage Optimization:** To fit under the **1 GB repository storage limit** of Hugging Face free tier, the Space utilizes the **3 generic weights files** (`mura_all_best_model.pth`, `mura_densenet_all_best_model.pth`, `mura_vit_all_best_model.pth` - **~466 MB** total) with dynamic fallback logic.
+* **Static Web Interface:** Hosted on **GitHub Pages** as a fallback layout, communicating with the Hugging Face Space backend container.
 
 A premium, interactive clinical-grade web application for real-time bone radiograph classification and abnormality detection. This system utilizes deep learning models trained on the Stanford MURA (musculoskeletal radiographs) dataset to classify X-ray images as **Normal** or **Abnormal** across 7 joint types.
 
@@ -110,29 +112,56 @@ pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu #
 pip install fastapi uvicorn pillow
 ```
 
-### 4. Place Checkpoint Weights
-On your system, the trained checkpoint weights are saved locally in the directory:
-`/Users/saeedanwar/Desktop/saeed/MURA/checkpoints/`
+### 4. Obtain and Place Checkpoint Weights
+The FastAPI inference engine loads weights from a local directory named `MURA/checkpoints/` relative to the repository root. Follow these steps to restore weights:
 
-The FastAPI inference engine loads weights directly from this folder. Ensure checkpoints match this layout:
-* **ResNet50:** `mura_{category}_best_model.pth`
-* **DenseNet169:** `mura_densenet_{category}_best_model.pth`
-* **ViT-B-16:** `mura_vit_{category}_best_model.pth`
+#### Option A: Download Generic Checkpoints from Hugging Face Spaces
+To quickly set up the system, you can download the three generic multi-joint checkpoints and training statistics from our Hugging Face Space using the commands below:
+```bash
+mkdir -p MURA/checkpoints
 
-*(Category values: `XR_ELBOW`, `XR_FINGER`, `XR_FOREARM`, `XR_HAND`, `XR_HUMERUS`, `XR_SHOULDER`, `XR_WRIST`, or `ALL` for generic models).*
+# Download ResNet50 Generic Weights
+curl -L -o MURA/checkpoints/mura_all_best_model.pth \
+  "https://huggingface.co/spaces/Saeed0296/mura-classification/resolve/main/MURA/checkpoints/mura_all_best_model.pth"
+
+# Download DenseNet169 Generic Weights
+curl -L -o MURA/checkpoints/mura_densenet_all_best_model.pth \
+  "https://huggingface.co/spaces/Saeed0296/mura-classification/resolve/main/MURA/checkpoints/mura_densenet_all_best_model.pth"
+
+# Download ViT-B-16 Generic Weights
+curl -L -o MURA/checkpoints/mura_vit_all_best_model.pth \
+  "https://huggingface.co/spaces/Saeed0296/mura-classification/resolve/main/MURA/checkpoints/mura_vit_all_best_model.pth"
+
+# Download Training Statistics JSONs
+curl -L -o MURA/checkpoints/overall_training_statistics.json \
+  "https://huggingface.co/spaces/Saeed0296/mura-classification/resolve/main/MURA/checkpoints/overall_training_statistics.json"
+
+curl -L -o MURA/checkpoints/densenet_training_statistics.json \
+  "https://huggingface.co/spaces/Saeed0296/mura-classification/resolve/main/MURA/checkpoints/densenet_training_statistics.json"
+
+curl -L -o MURA/checkpoints/vit_training_statistics.json \
+  "https://huggingface.co/spaces/Saeed0296/mura-classification/resolve/main/MURA/checkpoints/vit_training_statistics.json"
+```
+
+#### Option B: Restore Category-Specific Weights (For Project Owner)
+If you have the full set of 21 category-specific weight checkpoints (`mura_xr_*.pth`, `mura_densenet_xr_*.pth`, `mura_vit_xr_*.pth`) and baseline Keras models (`*.h5`) stored locally on your machine, copy the folder structure directly:
+```bash
+cp -r /Users/saeedanwar/Desktop/saeed/project/mura/MURA ./MURA
+```
+*Note: If specific weights are missing, the backend dynamically falls back to the generic `_all_best_model.pth` checkpoints.*
 
 ### 5. Launch the FastAPI Dashboard
 Run the FastAPI application from the project root:
 ```bash
 python backend/main.py
 ```
-Uvicorn will spin up a local server at: **`http://127.0.0.1:8000`**
+Uvicorn will spin up a local development server at: **`http://127.0.0.1:7860`**
 
 ---
 
 ## 📖 User Guide: How to Get Predictions
 
-1. **Open Dashboard:** Navigate to `http://127.0.0.1:8000/` (for local development running the backend) or use the live static UI hosted at [saeed0296.github.io/mura_classification/static/index.html](https://saeed0296.github.io/mura_classification/static/index.html).
+1. **Open Dashboard:** Navigate to `http://127.0.0.1:7860/` (for local development running the backend) or use the live production app hosted on [Hugging Face Spaces](https://huggingface.co/spaces/Saeed0296/mura-classification).
 2. **Select Joint Category:** Click on one of the visual category buttons (e.g., Elbow, Wrist, Hand, Finger, Humerus, Shoulder, Forearm, or Generic).
 3. **Upload X-Ray:** Drag & drop the bone radiograph image into the dashed upload panel or click to browse files.
 4. **Process:** Click **"Process Classifier Models"**. The live timer will start, displaying the inference phase of each architecture.
