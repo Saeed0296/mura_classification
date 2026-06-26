@@ -1,0 +1,10 @@
+{
+    "mura_small_best_model_1.h5": {
+        "accuracy": 0.7306850172036284,
+        "kappa": 0.7078043959636791
+    },
+    "TL_mura_small_best_model_1.h5": {
+        "accuracy": 0.7291210509852987,
+        "kappa": 0.705752134560219
+    }
+}
