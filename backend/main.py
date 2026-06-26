@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 # Temp directory to save uploaded images
-TEMP_DIR = os.getenv("MURA_TEMP_DIR", "/Users/saeedanwar/Desktop/saeed/mura_classification/temp")
+TEMP_DIR = os.getenv("MURA_TEMP_DIR", "/Users/saeedanwar/Desktop/saeed/project/mura/mura_classification/temp")
 os.makedirs(TEMP_DIR, exist_ok=True)
 
 @app.post("/predict")
@@ -53,7 +53,7 @@ async def predict(
     return results
 
 # Mount static frontend directory
-STATIC_DIR = os.getenv("MURA_STATIC_DIR", "/Users/saeedanwar/Desktop/saeed/mura_classification/static")
+STATIC_DIR = os.getenv("MURA_STATIC_DIR", "/Users/saeedanwar/Desktop/saeed/project/mura/mura_classification/static")
 os.makedirs(STATIC_DIR, exist_ok=True)
 
 # Mount the root directory to serve static HTML, CSS, JS

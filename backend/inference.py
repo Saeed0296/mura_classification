@@ -12,7 +12,7 @@ else:
     DEVICE = torch.device("cpu")
 
 # Path to checkpoints
-CHECKPOINT_DIR = os.getenv("MURA_CHECKPOINT_DIR", "/Users/saeedanwar/Desktop/saeed/MURA/checkpoints")
+CHECKPOINT_DIR = os.getenv("MURA_CHECKPOINT_DIR", "/Users/saeedanwar/Desktop/saeed/project/mura/MURA/checkpoints")
 
 # Normalization stats
 imagenet_mean = [0.485, 0.456, 0.406]
